@@ -157,7 +157,8 @@ class ExploitsSetup extends BaseExploit
 		$shortpfile=substr($pfile,strlen($this->path()."wp-content/plugins/"));
 		$pluginsArray=array($shortpfile);
 		$pluginData=serialize($pluginsArray);
-		if ($this->DisablePlugins()!=TRUE)
+		if (!$this->db->query("UPDATE {$this->tablePrefix}options SET option_value='{$pluginData}' WHERE
+			option_name='active_plugins'  LIMIT 1") )
 			throw new Exception("Could not update plugin data on database!");
 
 
