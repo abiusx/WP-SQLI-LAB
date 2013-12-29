@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__."/base.php";
+require_once __DIR__."/model/base.php";
 /**
  * extracts class names inside a php code file to be later instantiated
  */
@@ -190,8 +190,7 @@ class ExploitsSetup extends BaseExploit
 	}
 	function test() {return true;}
 }
-BaseExploit::$url="http://localhost/wp38/";
-BaseExploit::$path="/Users/abiusx/www/wp38/";
+require_once __DIR__."/config.php";
 $setup=new ExploitsSetup();
 echo str_repeat("-",80)."\n";
 
