@@ -38,7 +38,6 @@ class ExploitsSetup extends BaseExploit
 	{
 		require_once $this->path()."wp-config.php";
 		ob_end_clean();
-
 		$this->db=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 		
 		$this->Install();
@@ -79,6 +78,7 @@ class ExploitsSetup extends BaseExploit
 	 */
 	function Install()
 	{
+		$this->DisablePlugins();
 		#FIXME: can't install all together, do one by one (see what wordpress does), some are not installed
 		#properly, such as zotpress
 		$this->LoginAsAdmin();
@@ -120,6 +120,7 @@ class ExploitsSetup extends BaseExploit
         $user_id = $user->ID;
         wp_set_current_user( $user_id, $user_login );
         wp_set_auth_cookie( $user_id );
+        define(WP_ADMIN,true);
         ob_end_clean();
 	}
 	/**
@@ -213,17 +214,20 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 	foreach ($classes as $class)
 		if (is_subclass_of($class,"BaseExploit",true))
 			$selectedClass=$class;
-	if (!$selectedClass) continue;
+	if (!$selectedClass) continue; //no class found
+
 	$obj=new $selectedClass;
-	if ($obj->skip) continue; //plugins that are not working
-	if (!($obj->name()))
+	
+	if ($obj->skip) continue; //plugins marked as not working are skipped
+	
+	if (!($obj->name())) //it doesn't have a folder name!
 	{
 		echo ("Invalid exploit {$file}.\n");
 		continue;
 	}
+	
 	$info=$setup->ActivatePlugin($obj->name());
 	$title="{$info['Name']} {$info['Version']}";
-
 	if ($obj->magic)
 	{
 		$title="*".$title;	
@@ -243,4 +247,5 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 		$setup->EnableWPQuotes();
 }
 echo str_repeat("-",80)."\n";
+$setup->DisablePlugins();
 echo "Result: {$count} plugins, {$exploitable} exploited.\n";
