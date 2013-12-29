@@ -102,14 +102,12 @@ class ExploitsSetup extends BaseExploit
 				//no need to de-activate, its done via database and loading
 				//calling deactivate will make them erase themselves
 				$this->DisablePlugins();
+				file_put_contents(__DIR__."/installed.cache", serialize($installed));
 				$flag=true;
 			}
 		}
 		if ($flag==true)
-		{
-			file_put_contents(__DIR__."/installed.cache", serialize($installed));
 			die("New plugins were installed. Rerun the script once to complete the installation.\n");
-		}
 	}
 	/**
 	 * login as admin is needed to install plugins in wordpress
