@@ -1,0 +1,45 @@
+<?php
+/*
+Template Name: Profiles (Do Not Use Manually)
+// For K2
+*/
+?>
+<?php get_header(); ?>
+
+<div class="content">
+	<div id="primary">
+		<div id="current-content" class="hfeed">
+			<div id="post-<?php the_ID(); ?>" class="<?php k2_post_class(); ?>">
+				<div class="page-head">
+					<h2><a href="<?php the_permalink() ?>" rel="bookmark" title='<?php printf( __('Permanent Link to "%s"','k2_domain'), wp_specialchars(strip_tags(the_title('', '', false)),1) ); ?>'><?php the_title(); ?></a></h2>
+                    <?php
+					get_currentuserinfo() ;
+					global $user_level;
+					if ($user_level > 0) {
+					?>
+					<span class="entry-edit">
+                    	<a title="Edit Person" href="<?php echo get_option('siteurl'); ?>/wp-admin/edit.php?page=profiles">Edit</a>
+                    </span>
+                    <?php } ?>
+				</div>
+                <div class="people-load-block">
+                <img src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/profiles/images/ajax-loader.gif" alt="Loading ..." title="Loading ..." class="people-ajax-image" />&nbsp;Loading ...
+                </div>
+				<div class="entry-content">
+                	<?php if (isset($_GET['people_id'])) people_get_bio_by_id($_GET['people_id']);
+							else if (isset($_GET['people_slug'])) people_get_bio_by_slug($_GET['people_slug']);
+							else people_get_random_bio(); ?>
+				</div>
+                <?php link_pages('<p><strong>'.__('Pages:','k2_domain').'</strong> ', '</p>', 'number'); ?>
+			</div> <!-- #post-ID -->
+		</div> <!-- #current contnet -->
+        <div id="dynamic-content"></div>
+	</div> <!-- #primary -->
+    <div id="sidebar-people" class="secondary">
+    	<div id="people-list-sidebar" class="widget">
+        	<h4>People</h4>
+    		<?php people_list_ajax(); ?>
+        </div> <!-- #people-list-sidebar -->
+    </div> <!-- #sidebar-people -->
+</div> <!-- #content -->
+<?php get_footer(); ?>

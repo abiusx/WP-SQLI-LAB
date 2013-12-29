@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#outerblock { position:relative; z-index:2; margin:50px; }
+
+#innerblock { position:absolute; z-index:999;  }
+#innerblock #ribbon-left { }
+
+#innerblock .title { position:absolute;padding:0px 4px 7px 0px; display:none; color:#fff;height:40px; margin-top:200px; z-index:3;
+}
+#innerblock p { position:absolute; width:420px; padding:5px; text-align:justify; font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; margin-top:270px; z-index:2; display:none; line-height:18px; }
+
+#shadow { margin-top:-120px;margin-left:20px }
+
+#gconverter ul { list-style:none; }

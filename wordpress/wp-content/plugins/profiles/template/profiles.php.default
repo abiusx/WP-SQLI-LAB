@@ -1,0 +1,44 @@
+<?php
+/*
+Template Name: Profiles (Do Not Use Manually)
+// For Default Kubrick
+*/
+?>
+<?php get_header(); ?>
+
+	<div id="content" class="narrowcolumn">
+
+		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+		<div class="post" id="post-<?php the_ID(); ?>">
+		<h2><?php the_title(); ?></h2>
+        <div class="people-load-block">
+        	<img src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/profiles/images/ajax-loader.gif" alt="Loading ..." title="Loading ..." class="people-ajax-image" />&nbsp;Loading ...
+        </div>
+			<div class="entry">
+				<div class="entry-content">
+				<?php if (isset($_GET['people_id'])) people_get_bio_by_id($_GET['people_id']);
+                else if (isset($_GET['people_slug'])) people_get_bio_by_slug($_GET['people_slug']);
+                else people_get_random_bio(); ?>
+				</div>
+			</div>
+		</div>
+		<?php endwhile; endif; ?>
+		<?php
+    get_currentuserinfo() ;
+    global $user_level;
+    if ($user_level > 0) {
+    ?>
+    <span class="entry-edit">
+        <a title="Edit Person" href="<?php echo get_option('siteurl'); ?>/wp-admin/edit.php?page=profiles">Edit</a>
+    </span>
+    <?php } ?>
+	</div>
+
+    <div id="sidebar" class="secondary">
+    	<div id="people-list-sidebar" class="widget">
+        	<h4>People</h4>
+    		<?php people_list_ajax(); ?>
+        </div> <!-- #people-list-sidebar -->
+    </div> <!-- #sidebar-people -->
+
+<?php get_footer(); ?>

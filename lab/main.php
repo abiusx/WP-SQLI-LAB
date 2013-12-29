@@ -39,9 +39,10 @@ class ExploitsSetup extends BaseExploit
 		require_once $this->path()."wp-config.php";
 		ob_end_clean();
 
+		$this->db=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
+		
 		$this->Install();
 		
-		$this->db=new mysqli(DB_HOST,DB_USER,DB_PASSWORD,DB_NAME);
 		$this->tablePrefix=$table_prefix;
 		$this->Init();
 	}
@@ -63,6 +64,12 @@ class ExploitsSetup extends BaseExploit
 		$t=file_get_contents($this->path()."/wp-settings.php");
 		$t=str_replace("wp_magic_quotes();", "//MAGIC QUOTES DISABLED", $t);
 		file_put_contents($this->path()."wp-settings.php", $t);
+	}
+	function DisablePlugins()
+	{
+		return $this->db->query("UPDATE {$this->tablePrefix}options SET option_value='' WHERE
+			option_name='active_plugins'  LIMIT 1"); //disable all plugins
+
 	}
 	/**
 	 * this installs the new plugins that are added to the folder, by activating their hooks
@@ -93,6 +100,8 @@ class ExploitsSetup extends BaseExploit
 				echo "Installing new plugin '{$info['Name']}'.\n";
 				// deactivate_plugins($info['file']);
 				//no need to de-activate, its done via database and loading
+				//calling deactivate will make them erase themselves
+				$this->DisablePlugins();
 				$flag=true;
 			}
 		}
@@ -150,8 +159,7 @@ class ExploitsSetup extends BaseExploit
 		$shortpfile=substr($pfile,strlen($this->path()."wp-content/plugins/"));
 		$pluginsArray=array($shortpfile);
 		$pluginData=serialize($pluginsArray);
-		if ($this->db->query("UPDATE {$this->tablePrefix}options SET option_value='{$pluginData}' WHERE
-			option_name='active_plugins'  LIMIT 1")!=TRUE)
+		if ($this->DisablePlugins()!=TRUE)
 			throw new Exception("Could not update plugin data on database!");
 
 
@@ -164,6 +172,7 @@ class ExploitsSetup extends BaseExploit
 	 */
 	protected function Init()
 	{
+		$this->DisablePlugins();
 		echo "Calculating typical roundtrip time to server...\n";
 		$time=0;
 		$count=5;
@@ -194,6 +203,7 @@ require_once __DIR__."/config.php";
 $setup=new ExploitsSetup();
 echo str_repeat("-",80)."\n";
 
+$count=0;$exploitable=0;
 //iterate through exploits and test them
 foreach (glob(__DIR__."/exploits/*.php") as $file)
 {
@@ -206,15 +216,32 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 			$selectedClass=$class;
 	if (!$selectedClass) continue;
 	$obj=new $selectedClass;
+	if ($obj->skip) continue; //plugins that are not working
 	if (!($obj->name()))
 	{
 		echo ("Invalid exploit {$file}.\n");
 		continue;
 	}
 	$info=$setup->ActivatePlugin($obj->name());
+	$title="{$info['Name']} {$info['Version']}";
+
 	if ($obj->magic)
+	{
+		$title="*".$title;	
 		$setup->DisableWPQuotes();
-	echo (isset($obj->magic)?"*":"")."{$info['Name']} {$info['Version']} : ".($obj->test()?"Exploitable":"Secure")."\n";
+	}
+
+	$isExploitable=$obj->test();
+	$status=($isExploitable?"Exploitable":"Secure");
+	$dotlen=80-(strlen($title)+strlen($status));
+	if ($dotlen<3)
+		$dotlen=80+$dotlen;
+	echo $title.str_repeat(".",$dotlen).$status."\n";
+	$count++;
+	if ($isExploitable)
+		$exploitable++;
 	if ($obj->magic)
 		$setup->EnableWPQuotes();
 }
+echo str_repeat("-",80)."\n";
+echo "Result: {$count} plugins, {$exploitable} exploited.\n";

@@ -1,0 +1,11 @@
+1388289934 INSTALL chmod data dir is sucsess
+1388289934 INSTALL START
+1388289934 INSTALL load upgrade.php
+1388289934 INSTALL make table wp38_myStat_data start
+1388289934 INSTALL make table wp38_myStat_data stop
+1388289934 INSTALL make table wp38_myStat_dbsize start
+1388289934 INSTALL make table wp38_myStat_dbsize stop
+1388289934 INSTALL make table wp38_myStat_main start
+1388289934 INSTALL make table wp38_myStat_main stop
+1388289934 INSTALL set all options
+1388289934 INSTALL STOP

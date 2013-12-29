@@ -1,0 +1,1 @@
+Due to Facebook requirements, the folder named "facebookapp" must be in the ROOT of your domain.  For example "http://www.mysite.com/facebookapp".  

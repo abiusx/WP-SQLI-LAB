@@ -1,0 +1,11 @@
+.profiles_active_link {
+	font-weight: 700;
+	font-size: 125%;
+	border-bottom-style: solid;
+	border-bottom-color: #990100;
+	border-bottom-width: thin;
+	}
+	
+img .people-bio-image {
+	float: left;
+	}

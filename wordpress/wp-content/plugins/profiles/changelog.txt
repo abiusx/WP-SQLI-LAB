@@ -1,0 +1,25 @@
+Changes to Package structure:
+
+Rename /wp-people.js to /js/profiles.js.php
+Rename .../k2/jQuery to /js/jQuery.js.php
+Rename /plugin-functions.php to /library/plugin-functions.php
+Rename /people-functions.php to /library/people-functions.php
+REMOVE /show-functions.php
+Rename /bio-image.php to /library/bio-image.php
+
+Options:
+********
+
+Added profiles_default_text  		The default text added to a new entry
+Added profiles_location			The location where the profiles page lives.
+Added profiles_image_height		The profile image height
+Added profiles_image_width		The profile image width
+Added profiles_image_watermark_add	Whether or not to add a watermark
+Added profiles_image_watermark_text	The text of the watermark
+Added profiles_image_watermark_color	The watermark color, format 'XXXXXX#XXXXXX' in hex for fore and back color
+Added profiles_image_watermark_font	The font, specify the font name, w/o .ttf in /fonts
+Added profiles_image_watermark_size	The size (in points) of the watermark
+Added profiles_use_permalinks		Whether to use pretty links, or post links for page viewing.
+Added profiles_load_jquery		Whether to load jQuery.
+Added profiles_user_level		The minimum user level to edit profiles.
+Added profiles_setup_complete		Whether setup has been performed

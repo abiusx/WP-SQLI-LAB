@@ -8,7 +8,7 @@ abstract class BaseExploit
 	protected function fastEnough($time)
 	{
 		//half the threshold is slow enough, considering that threshold is 5 times the roundtrip
-		return $time<self::$threshold/2+self::$roundtrip;
+		return $time<self::$threshold+self::$roundtrip;
 	}
 	protected function signatureMysql()
 	{

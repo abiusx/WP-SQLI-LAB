@@ -1,0 +1,60 @@
+/*Copyright (C) 2008  David Thomas Liem
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+.single_track table {
+	color: #00ff00;
+}
+
+
+.single_track_left {
+	background-color: #e0e0e0; 
+	padding: 2px 5px 2px 15px;
+	width: 200px;
+	font-weight: none;
+	text-align: center;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+	-webkit-border-top-left-radius: 15px;
+	-webkit-border-bottom-left-radius: 15px;
+	-moz-border-radius: 15px 0px 0px 15px;
+}
+
+.single_track_right {
+	background-color: #e0e0e0; 
+	padding: 2px 5px 2px 5px;
+	width: 15px;
+}
+
+.gallery_left {
+	padding: 2px 5px 2px 15px;
+	width: 200px;
+	border-width: 1px;
+	border-bottom-style: dotted;
+}
+
+.gallery_right {
+	width: 15px;
+	padding: 2px 5px 2px 5px;
+	border-width: 1px;
+	border-bottom-style: dotted;
+}
+
+
+.audio_gallery {
+	padding: 2px 5px 2px 5px;
+	border-width: 1px;
+	border-bottom-style: dotted;
+}

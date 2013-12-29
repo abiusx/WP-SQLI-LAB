@@ -1,0 +1,367 @@
+
+p, ul, li{
+	margin:0;
+	padding:0;
+}
+h1 {
+  font-size:125%;
+  border-bottom:#8F8F8F 2px solid;
+  padding:10px;
+  background-color:#EFEFEF;
+  margin:0;
+ }
+h2{
+  font-size:112%;
+  overflow:visible;
+  padding:10px;
+  margin:0;
+}
+p {
+  font-size:80%;
+  padding:10px;
+  margin:0;
+}
+div.enterform{
+    padding:15px;    
+}
+
+#container{
+	width:470px;
+	position:relative;
+}
+#header{
+	width:470px;
+	height:25px;
+}
+#header ul{
+	list-style:none;
+}
+#header li{
+	float:left;
+	padding:5px 10px;
+}
+#content{
+	width:470px;
+	height:497px;
+	clear:both;
+	position:relative;
+}
+.clearer{
+	clear:both;
+	width:100%;	
+}
+
+/*#content .universallinks ul{
+	list-style:none;
+	padding:0px 0 0 275px;
+	margin:0;
+	height:25px;
+}
+#content .universallinks ul li a{
+	display:block; 
+	float:left; 
+	text-decoration:none; 
+	text-indent:-999em;
+	width:100px;
+	height:25px;
+	margin:0 0 0 5px;
+	background:url(/facebookapp/ui_images/transparent.gif) top left repeat;
+
+}
+#content .univerallinks li{
+	float:left;
+}
+#content p.sponsorlink{
+	position:absolute;
+	top:289px;
+	left:0;
+}
+#content p.sponsorlink a{
+	width:150px;
+	height:125px;
+	text-decoration:none; 
+	text-indent:-999em;
+	display:block;
+}
+*/
+#content .universallinks{
+	position:absolute;
+	top:4px;
+	left:255px;
+}
+#content .universallinks ul{
+	list-style:none;
+	height:25px;
+}
+#content .universallinks ul li a{
+	display:block; 
+	float:left; 
+	text-decoration:none; 
+	text-indent:-999em;
+	width:100px;
+	height:25px;
+	background:url(/facebookapp/ui_images/transparent.gif) top left repeat;
+	margin:0;
+
+}
+#content .universallinks li{
+	float:left;
+	margin:0 4px 0 0;
+}
+#content p.sponsorlink{
+	position:absolute;
+	top:287px;
+	left:0;
+}
+#content p.sponsorlink a{
+	width:150px;
+	height:125px;
+	text-decoration:none; 
+	text-indent:-999em;
+	display:block;
+}
+#content p.enterlink{
+	position:absolute;
+	top:288px;
+	left:255px;
+}
+#content p.enterlink a{
+	width:185px;
+	height:125px;
+	text-decoration:none; 
+	text-indent:-999em;
+	display:block;
+}
+
+
+/***************************************************  SWARM - 1.LIKE FIRST  */
+div.likefirst{
+	background:#FFFFFF url('images/1-LIKEPAGE.jpg') top left no-repeat;
+}
+
+/***************************************************  SWARM - 2.ALLOW APP ACCESS  */
+div.allowapp{
+	background:#FFFFFF url('images/2-ALLOWAPP.jpg') top left no-repeat;
+}
+#content p.enterlink1, p.enterlink3{
+	position:absolute;
+	top:288px;
+	left:255px;
+}
+
+p.enterlink3 a{
+	width:185px;
+	height:125px;
+	text-decoration:none;
+	text-indent:-9999em;
+	display:block;
+	margin:0;
+	padding:0;
+}
+
+
+/***************************************************  SWARM - 3.Home Screen  */
+div.home{
+	background:url('images/3-HOME.jpg') top left no-repeat;
+}
+div.clickarea{
+	position:absolute;
+	top:285px;
+	left:255px;
+}
+p.purchase{
+	width:183px;
+	display:block;
+	margin:2px 0 2px;
+}
+img.purchasebtn{
+	width:183px;
+	height:58px;
+	display:block;
+}
+div.tippingpoint{
+	width:442px;
+	display:block;
+	position:absolute;
+	top:423px;
+	left:0;
+	background:transparent;
+	font-size:1em;
+	text-transform:uppercase;
+}
+div.tippingpoint p{
+	text-align:right;
+	padding:2px 10px;
+	margin:0;
+	line-height:.9em;
+}
+div.tippingpoint p.bold{
+	font-weight:bold;
+	font-size:1.0em;
+}
+div.tippingpoint p.small{
+	font-size:.75em;
+}/***************************************************  SWARM - 4.Already Purchased  */
+div.purchased{
+	background:#FFFFFF url('images/4-ALREADYPURCHASED.jpg') top left no-repeat;
+}
+
+div.alreadypurchased{
+	position:absolute;
+	top:245px;
+	left:255px;
+	background:transparent;
+	width:185px;
+}
+div.alreadypurchased p{
+	font-size:10px;
+	line-height:12px;
+	padding:5px;
+	margin:0;
+}
+/***************************************************  SWARM -5.Promote  */
+div.Promote{
+	background:#FFFFFF url('images/5-PROMOTE.jpg') top left no-repeat;
+}
+/***************************************************  SWARM -6.Coupon  */
+div.Coupon{
+	background:#FFFFFF url('images/6-COUPON.jpg') top left no-repeat;
+}
+/***************************************************  SWARM -7-PromoEnded  */
+div.PromoEnded{
+	background:#FFFFFF url('images/7-PROMOENDED.jpg') top left no-repeat;
+}
+
+#systemmessage{
+	width:410px;
+	height:450px;
+	z-index:99;
+	position:absolute;
+	top:31px;
+	left:25px;
+	display:block;
+	border:5px solid #999999;
+	border-radius:15px;
+	-webkit-border-radius:15px;
+	-moz-border-radius:15px;
+	background: #FFFFFF; /*This Background Color will be set by the user in the Wordpress Admin*/
+	opacity:.99;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=99)"; /*For IE */
+	filter: alpha(opacity=99);/*For IE */
+}
+#systemmessage p{
+	padding:15px;
+}
+
+
+
+/***************************************************  SWARM -7-PromoEnded  */
+#entrypopup, #systemmsg, #rulesregspopup{
+	width:480px;
+	height:650px;
+	z-index:99;
+	position:absolute;
+	top:70px;
+	left:20px;
+	display:block;
+	border:1px solid #2b3e7f;
+	background: #FFFFFF; /*This Background Color will be set by the user in the Wordpress Admin*/
+	-moz-box-shadow: 0px 0px 5px #888;
+	-webkit-box-shadow: 0px 0px 5px #888;
+	box-shadow: 0px 0px 5px #888;
+	font-size:.9em;
+}
+#rulesregspopup{
+	overflow:scroll;
+}
+#rulesregspopup p{
+	font-size:.85em;
+	padding:15px;	
+}
+#entrypopup p, #systemmsg p{
+	padding:10px 15px;
+	font-size:.9em;
+}
+#enterform a:hover, #systemmsg a:hover, #rulesregspopup a:hover{
+	cursor:pointer;
+}
+div.closebar{
+	background:#dadce5;
+	border-bottom:1px solid #2b3e7f;
+	padding:3px 5px;	
+	text-align:right;
+}
+div.closebar a{
+	text-decoration:none;
+	color:#2b3e7f;	
+}
+#footer{
+	width:450px;
+	height:35px;
+	clear:both;
+	position:absolute;
+	top:533px;
+	left:15px;
+	font-size:.7em;
+	line-height:.9em;
+}
+#footer p{
+	padding:3px 0 0 5px;
+	font-size:.7em;
+	line-height:.9em;
+}
+p.universalcopyright{
+	font-size:10px;
+	line-height:12px;
+	margin:50px 0 0;
+}
+#content div.messagearea{
+	position:absolute;
+	top:280px;
+	left:20px;	
+	width:200px;
+	line-height:18px;
+}
+
+#content div.accessdenied{
+	position:absolute;
+	top:289px;
+	left:280px;
+}
+
+#promo_dialogbox{
+	width:410px;
+	height:200px;
+	position:absolute;
+	top:31px;
+	left:55px;
+	display:block;
+	border:3px solid #999999;
+	background:url(/facebookapp/ui_images/transparent.gif) top left repeat;
+	}
+#promo_dialogbox p {
+	padding:15px;
+}
+
+/***************************************************  Footer Share/Send/Like styling  */
+
+div.footersharebtn, div.footersendbtn, div.footerlikebtn{
+    float:left;
+    margin:5px 2px 0;
+}
+div.footerlikebtn{
+    width:315px;
+    display:inline;
+    max-width:325px;
+
+}
+div.footersharebtn, div.footersendbtn{
+}
+.footercopyright{
+padding:5px 0; font-size:.8em;
+}
+
+a{
+color:#3b5998;
+text-decoration:underline;
+}
