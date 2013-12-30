@@ -1364,7 +1364,7 @@ function SocialSliderPromoNotice()
 
 add_action('admin_init', 'SocialSliderAdminHead');
 add_action('admin_menu','SocialSliderMenu');
-
+register_activation_hook(__FILE__,'SocialSliderUstawienia'); //WP-SQLI-LABS added, to generate tables without needing to visit admin page
 if(get_option('socialslider_mobile')=="nie" || !get_option('socialslider_mobile'))
 	{
 	$useragents = array(
