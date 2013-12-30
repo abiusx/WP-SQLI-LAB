@@ -112,7 +112,7 @@ class ExploitsSetup extends BaseExploit
 	/**
 	 * login as admin is needed to install plugins in wordpress
 	 */
-	protected function LoginAsAdmin()
+	 protected function LoginAsAdmin()
 	{
 		#needed to use activate_plugin
 		ob_start();
@@ -225,11 +225,8 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 		echo ("Invalid exploit {$file}.\n");
 		continue;
 	}
-	// if ($obj->name()!="gd-star-rating") continue; ##
 	
 	$info=$setup->ActivatePlugin($obj->name());
-	// $setup->DisablePlugins(); ##
-	// activate_plugin($info['file']); ##
 	$title="{$info['Name']} {$info['Version']}";
 	if ($obj->magic)
 	{
