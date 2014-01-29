@@ -2,6 +2,7 @@
 
 abstract class BaseExploit 
 {
+	static $logdir=null; //if logs are enabled
 	static $benchmark=1024; //number to be used in benchmark for blind
 	static $threshold=1;	//number of seconds to succeed on blind
 	static $roundtrip=1; 	//time of a single request to the host

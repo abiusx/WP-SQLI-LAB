@@ -202,7 +202,8 @@ class ExploitsSetup extends BaseExploit
 require_once __DIR__."/config.php";
 $setup=new ExploitsSetup();
 echo str_repeat("-",80)."\n";
-
+if (BaseExploit::$logdir)
+	system("rm -rf ".BaseExploit::$logdir."/*");
 $count=0;$exploitable=0;
 //iterate through exploits and test them
 foreach (glob(__DIR__."/exploits/*.php") as $file)
@@ -245,6 +246,11 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 		$exploitable++;
 	if ($obj->magic)
 		$setup->EnableWPQuotes();
+	if (BaseExploit::$logdir)
+	{
+		system("mkdir -p ".BaseExploit::$logdir."/{$obj->name()}");
+		system("mv ".BaseExploit::$logdir."/*.* ".BaseExploit::$logdir."/{$obj->name()}/");
+	}
 }
 echo str_repeat("-",80)."\n";
 $setup->DisablePlugins();
