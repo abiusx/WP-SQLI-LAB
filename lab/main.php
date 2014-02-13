@@ -249,7 +249,7 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 	if (BaseExploit::$logdir)
 	{
 		system("mkdir -p ".BaseExploit::$logdir."/{$obj->name()}");
-		system("mv ".BaseExploit::$logdir."/*.* ".BaseExploit::$logdir."/{$obj->name()}/");
+		system("mv ".BaseExploit::$logdir."/*.* ".BaseExploit::$logdir."/{$obj->name()}/ >/dev/null 2>&1");
 	}
 }
 echo str_repeat("-",80)."\n";
