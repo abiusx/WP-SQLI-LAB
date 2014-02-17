@@ -2,9 +2,11 @@
 
 abstract class BaseExploit 
 {
+	static $verbose=false;
 	static $logdir=null; //if logs are enabled
 	static $benchmark=1024; //number to be used in benchmark for blind
 	static $threshold=1;	//number of seconds to succeed on blind
+	static $thresholdMultiplier=5;	//how many times of roundtrip should the threshold be
 	static $roundtrip=1; 	//time of a single request to the host
 	static $evasionFunction=null;
 	/**
@@ -20,7 +22,7 @@ abstract class BaseExploit
 	protected function fastEnough($time)
 	{
 		//half the threshold is slow enough, considering that threshold is 5 times the roundtrip
-		return $time<self::$threshold+self::$roundtrip;
+		return $time<self::$threshold/2+self::$roundtrip;
 	}
 	protected function signatureMysql()
 	{
@@ -54,6 +56,16 @@ abstract class BaseExploit
 	}
 	protected function curl($url,$postData=null,$headers=array())
 	{
+		if (self::$verbose)
+		{
+			echo '"'.$url.'"';
+			if (is_array($postData)) 
+				echo " --data \"".http_build_query($postData).'"';
+			elseif (is_string($postData))
+				echo " --data \"{$postData}\"";
+
+			echo PHP_EOL;
+		}
 	    $defaults = array( 
         	CURLOPT_HEADER => (count($headers)>=1), 
         	CURLOPT_URL => $url, 

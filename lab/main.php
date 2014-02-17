@@ -32,6 +32,7 @@ function GetClasses($file)
     return $classes;
         //is_subclass_of(class, parent_class,/* allow first param to be string */true) 
 }
+class PluginNotFoundException extends Exception {}
 class ExploitsSetup extends BaseExploit
 {
 	function __construct()
@@ -91,7 +92,15 @@ class ExploitsSetup extends BaseExploit
 		{
 			if (!is_dir($plugin)) continue;
 			$basename=basename($plugin);
-			$info=$this->PluginInfo($basename);
+			try {
+				$info=$this->PluginInfo($basename);
+			}
+			catch (PluginNotFoundException $e)
+			{
+				echo $plugin." Not Found".PHP_EOL;
+				continue;
+			}
+
 			if (!$installed[$basename])
 			{
 				$installed[$basename]=true;
@@ -140,7 +149,7 @@ class ExploitsSetup extends BaseExploit
 			}
 		}
 		if (!$pfile)
-			throw new Exception("Could not find plugin {$plugindir}.");
+			throw new PluginNotFoundException("Could not find plugin {$plugindir}.");
 		$info['file']=$pfile;
 		return $info;		
 	}
@@ -184,7 +193,7 @@ class ExploitsSetup extends BaseExploit
 		}
 		self::$roundtrip=$time/$count;
 		echo "Average roundtrip was ".self::$roundtrip." seconds.\n";
-		self::$threshold=self::$roundtrip*3;
+		self::$threshold=self::$roundtrip*BaseExploit::$thresholdMultiplier;
 
 		echo "Calculating the appropriate benchmark count for mysql to use in exploits...\n";
 		do {
@@ -200,6 +209,16 @@ class ExploitsSetup extends BaseExploit
 	function test() {return true;}
 }
 require_once __DIR__."/config.php";
+$specificExploit=null;
+if (isset($argc) && isset($argv[1])) 
+{
+
+	if($argv[1]!="-v")
+		$specificExploit=$argv[1];
+	if ($argv[$argc-1]=="-v")
+		BaseExploit::$verbose=true;
+}
+
 $setup=new ExploitsSetup();
 echo str_repeat("-",80)."\n";
 if (BaseExploit::$logdir)
@@ -221,6 +240,7 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 	
 	if ($obj->skip) continue; //plugins marked as not working are skipped
 	
+	if ($specificExploit && $obj->name()!=$specificExploit) continue;
 	if (!($obj->name())) //it doesn't have a folder name!
 	{
 		echo ("Invalid exploit {$file}.\n");
@@ -253,5 +273,5 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 	}
 }
 echo str_repeat("-",80)."\n";
-$setup->DisablePlugins();
+if (!$specificExploit) $setup->DisablePlugins();
 echo "Result: {$count} plugins, {$exploitable} exploited.\n";

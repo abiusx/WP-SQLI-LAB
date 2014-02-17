@@ -6,3 +6,4 @@ BaseExploit::$evasionFunction=function($length) {
 	if ($length<4) return "";
 	return "/*".str_repeat("'ZZZ",($length-4)/4)."*/";
 };
+// BaseExploit::$verbose=true;
