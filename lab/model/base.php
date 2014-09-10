@@ -12,7 +12,7 @@ abstract class BaseExploit
 	/**
 	 * adds IDS evasive strings, call wherever you can in the query
 	 */
-	protected function evasion($length=100)
+	protected function evasion($length=20)
 	{
 		if (isset(self::$evasionFunction))
 			return call_user_func_array(self::$evasionFunction, array($length));

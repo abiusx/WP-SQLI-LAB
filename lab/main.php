@@ -229,14 +229,13 @@ if (!ini_get("short_open_tag"))
 
 
 $specificExploit=null;
-if (isset($argc) && isset($argv[1])) 
+for ($i=1;$i<$argc;++$i)
 {
-
-	if($argv[1]!="-v")
-		$specificExploit=$argv[1];
-	if ($argv[$argc-1]=="-v")
-		BaseExploit::$verbose=true;
+	if($argv[$i]!="-v" and $argv[$i]!="-t")
+		$specificExploit=$argv[$i];
 }
+if (in_array("-v",$argv))
+	BaseExploit::$verbose=true;
 
 $setup=new ExploitsSetup();
 echo str_repeat("-",80)."\n";
@@ -281,7 +280,7 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 	if ($dotlen<3)
 		$dotlen=80+$dotlen;
 	echo $title.str_repeat(".",$dotlen).$status."\n";
-	if (BaseExploit::$verbose) echo $time.PHP_EOL;
+	if (in_array("-t", $argv)) echo $time.PHP_EOL;
 	$count++;
 	if ($isExploitable)
 		$exploitable++;
